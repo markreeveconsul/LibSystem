@@ -1,0 +1,41 @@
+﻿@page
+@model LibSystem.Pages.LogsModel
+@{
+    ViewData["Title"] = "Logs";
+}
+
+<h1>Logs</h1>
+<p><a asp-page="/Index">Home</a></p>
+
+@if (Model.Logs == null || !Model.Logs.Any())
+{
+    <p>No logs found.</p>
+}
+else
+{
+    @{ 
+        var first = Model.Logs.FirstOrDefault();
+        int cols = first?.Length ?? 0;
+    }
+    <table border="1" cellpadding="4" cellspacing="0">
+        <thead>
+            <tr>
+                @for (int i = 0; i < cols; i++)
+                {
+                    <th>Column @(i + 1)</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var row in Model.Logs)
+            {
+                <tr>
+                    @foreach (var cell in row)
+                    {
+                        <td>@cell</td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+}
